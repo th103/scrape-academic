@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Scraping Akademi Uygulaması</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .navbar {
+        margin-bottom: 20px;
+      }
+
+      .form-container {
+        margin: 0 auto;
+        width: 50%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      #sol {
+        float: left;
+        width: 30%;
+        padding: 5px;
+        height: 1000px;
+      }
+
+      #sag {
+        float: right;
+        width: 70%;
+        padding: 5px;
+      }
+
+      .input-group {
+        margin-bottom: 15px;
+      }
+    </style>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: navy; font-weight: bold"
+          >Web Scraping Akademi Uygulaması</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link active" aria-current="page" href="/"
+              >Kazıma Yap ⛏️</a
+            >
+            <a class="nav-link active" href="/ara"
+              ><strong>Kazınan Makaleleri Ara 🔎</strong></a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <div id="ust">_</div>
+
+    <div id="sol">
+      <form action="/getir" method="GET" role="search">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            ><strong>Makale Adı</strong></span
+          >
+          <input
+            type="text"
+            placeholder="Örn. derin öğrenme"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="makale_adi"
+            name="makale_adi"
+            hx-get="/getir"
+            hx-target="#girdiler"
+            hx-trigger="every 2s"
+            hx-include="[name='yazar'], [name='yil'],[name='tur'],[name='yayin_yeri'],[name='arama_sorgusu'],[name='anahtar'],[name='ozet'],[name='kaynakca'],[name='alinti_sayisi'],[name='doi'],[name='sirala']"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Yazar</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. yılmaz"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="yazar"
+            name="yazar"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Yıl</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. 2003"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="yil"
+            name="yil"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Yayın yeri</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. A Dergisi"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="yayin_yeri"
+            name="yayin_yeri"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Arama Sorgusu</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. kriptografi, hash"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="arama_sorgusu"
+            name="arama_sorgusu"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Anahtar Kelimeler</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. şifreleme, brute-force"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="anahtar"
+            name="anahtar"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Özet</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. ittifak boyutlarına ulaşm..."
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="ozet"
+            name="ozet"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Referanslar</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. Arule-based system for advising"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="kaynakca"
+            name="kaynakca"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Alıntı Sayısı</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. 43"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="alinti_sayisi"
+            name="alinti_sayisi"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >DOI</span
+          >
+          <input
+            type="text"
+            placeholder="Örn. 10.1155/2022/141"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            id="doi"
+            name="doi"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div id="sag">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Başlık</th>
+            <th scope="col">Yazar</th>
+            <th scope="col">Yıl</th>
+            <th scope="col">Yayın yeri</th>
+            <th scope="col">Anahtar kelimeler</th>
+            <th scope="col">Alıntı sayısı</th>
+            <th scope="col">Detay</th>
+          </tr>
+        </thead>
+        <tbody id="girdiler"></tbody>
+      </table>
+    </div>
+    <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

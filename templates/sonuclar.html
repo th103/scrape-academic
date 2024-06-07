@@ -1,0 +1,18 @@
+{% for girdi in girdiler %}
+<tr>
+  <td>{{girdi._source.baslik }}</td>
+  <td>{{girdi._source.yazar }}</td>
+  <td>{{girdi._source.yil}}</td>
+  <td>{{girdi._source.yayin_yeri}}</td>
+  <td>{{girdi._source.anahtar}}</td>
+  <td>{{girdi._source.alinti_sayisi}}</td>
+  <td>
+    <a
+      href="/bilgi/{{girdi._source.google_id}}"
+      target="_blank"
+      class="btn btn-primary"
+      >👁️</a
+    >
+  </td>
+</tr>
+{% endfor %}
